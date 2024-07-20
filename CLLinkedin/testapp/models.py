@@ -28,7 +28,6 @@ class Employee(models.Model):
 
 
 
-    
 # Academic Tables 
 
 class Degree(models.Model):
