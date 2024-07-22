@@ -1,1 +1,14 @@
-<h1>"Hello World"</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee List</title>
+</head>
+<body>
+    <h1>Employee List</h1>
+    <ul>
+        {% for employee in employees %}
+            <li>{{ employee.fname }} {{ employee.lname }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

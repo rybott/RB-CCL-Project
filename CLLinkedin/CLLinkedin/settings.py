@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'testapp.apps.TestappConfig',
+    'employees',
+    'companies',
+    'jobmatching',
     'rest_framework'
 ]
 
