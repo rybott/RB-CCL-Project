@@ -6,7 +6,7 @@ from django.contrib import messages
 
 def main(request):
     employees = Employee.objects.all()
-    return render(request, 'index.html', {'employees':employees})
+    return render(request, 'hp.html')
 
 def login_employee(request):
     return render(request,'login.html',{})
