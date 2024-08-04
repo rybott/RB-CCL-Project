@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Choices the User Can make
 Ethnicities = (
@@ -31,8 +32,8 @@ statuses = (("G", "Graduated"), ("W", "Withdrawn"), ("C", "Current"))
 
 current = (("f", "freshman"), ("s", "sophomore"), ("j", "junior"), ("sn", "senior"))
 
-# Python SQL Table Implementation
 class Employee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     fname = models.CharField(max_length=50)  # First Name
     lname = models.CharField(max_length=50)  # Last Name
     phone = models.CharField(max_length=11)  # Phone Number (Check for valid Number)
@@ -47,6 +48,21 @@ class Employee(models.Model):
     non_citizen = models.CharField(max_length=1, choices=NonCitizen, default='0')
     gross_income = models.CharField(max_length=1, choices=Income, default='1')
     created_on = models.DateTimeField(auto_now=True)
+
+    def is_complete(self):
+        return all([
+            self.fname,
+            self.lname,
+            self.phone,
+            self.dob,
+            self.hispanic,
+            self.ethnicity,
+            self.gender,
+            self.orientation,
+            self.us_citizenship,
+            self.non_citizen,
+            self.gross_income,
+        ])
 
 # Academic Tables
 class Degree(models.Model):
