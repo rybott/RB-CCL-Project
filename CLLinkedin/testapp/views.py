@@ -14,7 +14,7 @@ def main(request):
 
 def register_employee(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()  # Save the new User instance
 
@@ -25,9 +25,9 @@ def register_employee(request):
             login(request, user)
 
             # Redirect to profile completion or home page
-            return redirect('complete_profile')  # Direct to complete profile after registration
+            return redirect('../complete_profile')  # Direct to complete profile after registration
     else:
-        form = UserCreationForm()
+        form = CreateUserForm()
 
     context = {'form': form}
     return render(request, 'register.html', context)
@@ -58,12 +58,14 @@ def login_employee(request):
     return render(request, 'loginn.html', context)
 
 def complete_profile(request):
+    employee = request.user.employee
+    form = EmplProfileForm(instance=employee)
+
     if request.method == 'POST':
-        form = EmplProfileForm(request.POST, instance=request.user.userprofile)
+        form = EmplProfileForm(request.POST, instance=employee)
         if form.is_valid():
             form.save()
-            return redirect('home')
-    else:
-        form = EmplProfileForm(instance=request.user.userprofile)
+            # Optionally redirect to a success page
+            return redirect('profile_success')
 
-    return render(request, 'complete_profile.html', {'form': form})
+    return render(request, 'complete_employee.html', {'form': form})

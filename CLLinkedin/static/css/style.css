@@ -137,6 +137,10 @@ Javascript Css Triggers
 
 /*--------------Code from Website for Login-------------------*/
 
+.Form_Header {
+    color: #fff;
+    white-space: nowrap;
+}
 
 .user_card {
     width: 350px;
