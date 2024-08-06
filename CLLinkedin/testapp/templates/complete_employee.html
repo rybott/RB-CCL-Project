@@ -5,46 +5,140 @@
 {% block template %}
 
 
-    <div class="container h-100">
-        <div class="d-flex justify-content-center h-100">
-            <div class="user_card">
-                <div class="d-flex justify-content-center">
-                    <h3 id="form-title">LOGIN</h3>
-                </div>
-                <div class="d-flex justify-content-center form_container">
 
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            {{form.username}}
-                        </div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            {{form.password}}
-                        </div>
-
-                            <div class="d-flex justify-content-center mt-3 login_container">
-                                <input class="btn login_btn" type="submit" value="Loginn", name="Login">
-                            </div>
-                    </form>
-                </div>
-
-                {{form.errors}}
-        
-                <div class="mt-4">
-                    <div class="d-flex justify-content-center links" id="haveacc">
-                        Don't have an account yet? <a href="{% url 'register' %}" class="ml-2">Create Account</a>
-                    </div>
-                </div>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center">
+                <h3 id="form-title"><b>Update Your Profile</b></h3>
             </div>
+            <h10 style="color: white; text-align: center; margin: 3% 0 5% 0;"><b>Fill out the following information to issuer the best match for jobs, activites, and more!</b></h10>
+            <div class="d-flex justify-content-center form_container">
+                <form method="POST" action="">
+                    {% csrf_token %}
+
+                    <div class="form-step" id="step1">
+
+                        <h5 class="Form_Header">First Name</h5>
+                        <div class="input-group mb-3">
+                            {{form.fname}}
+                        </div>
+
+                        <h5 class="Form_Header">last Name</h5>
+                        <div class="input-group mb-2">
+                            {{form.lname}}
+                        </div>
+
+                        <h5 class="Form_Header">Phone Number</h5>
+                        <div class="input-group mb-2">
+                            {{form.phone}}
+                        </div>
+
+                        <h5 class="Form_Header">Date of Birth </h5>
+                        <div class="input-group mb-2">
+                            {{form.dob}}
+                        </div>
+
+                        <h5 class="Form_Header">Ethnicity</h5>
+                        <div class="input-group mb-2">
+                            {{form.ethnicity}}
+                        </div>
+
+                        <h5 class="Form_Header">Gender</h5>
+                        <div class="input-group mb-2">
+                            {{form.gender}}
+                        </div>
+
+                        <h5 class="Form_Header"Orientation </h5>
+                        <div class="input-group mb-2">
+                            {{form.orientation}}
+                        </div>
+
+                        <div style="display: flex; flex-direction: row; border-style: solid;">
+                            <h5 class="Form_Header" style="border-style: solid;">US Citizen</h5>
+                            <div style="width: 30px; border: solid #000;">
+                                {{form.us_citizenship}}
+                            </div> 
+                        </div>
+                        
+
+                        <h5 class="Form_Header">Gross Income</h5>
+                        <div class="input-group mb-2">
+                            {{form.gross_income}}
+                        </div>
+                        <div class="center" style="margin-top: 10% ;">
+                            <button type="button" id="next1" >Academic Record</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="step2" style="display: none;">
+
+                        <button type="button" id="prev2">General Information</button>
+                        <button type="button" id="next2">Job History</button>
+                    </div>
+
+                    <div class="form-step" id="step3" style="display: none;">
+
+                        <button type="button" id="prev2">Job History</button>
+                        <button type="button" id="next2">Schedule</button>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                        <input class="btn login_btn" type="submit" value="Register Account", name="Create User">
+                    </div>
+                </form>
+
+
+            </div>
+
         </div>
     </div>
+</div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formSteps = document.querySelectorAll('.form-step');
+    let currentStep = 0;
+
+    document.getElementById('next1').addEventListener('click', function() {
+        formSteps[currentStep].style.display = 'none';
+        currentStep++;
+        formSteps[currentStep].style.display = 'block';
+    });
+
+    document.getElementById('next2').addEventListener('click', function() {
+        formSteps[currentStep].style.display = 'none';
+        currentStep++;
+        formSteps[currentStep].style.display = 'block';
+    });
+
+    document.getElementById('prev2').addEventListener('click', function() {
+        formSteps[currentStep].style.display = 'none';
+        currentStep--;
+        formSteps[currentStep].style.display = 'block';
+    });
+
+    document.getElementById('prev3').addEventListener('click', function() {
+        formSteps[currentStep].style.display = 'none';
+        currentStep--;
+        formSteps[currentStep].style.display = 'block';
+    });
+
+    // Optionally add validation before proceeding
+});
+
+</script>
 
 {% endblock %}

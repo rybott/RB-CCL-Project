@@ -33,20 +33,20 @@ statuses = (("G", "Graduated"), ("W", "Withdrawn"), ("C", "Current"))
 current = (("f", "freshman"), ("s", "sophomore"), ("j", "junior"), ("sn", "senior"))
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    fname = models.CharField(max_length=50)  # First Name
-    lname = models.CharField(max_length=50)  # Last Name
-    phone = models.CharField(max_length=11)  # Phone Number (Check for valid Number)
-    email = models.EmailField()  # Email
-    age = models.PositiveIntegerField()  # Age
-    dob = models.DateField()  # Date of Birth
-    hispanic = models.BooleanField()  # Y/N Hispanic
-    ethnicity = models.CharField(max_length=2, choices=Ethnicities, default='NA')  # Ethnicity/Race Choice
-    gender = models.CharField(max_length=2, choices=Gender, default='NA')  # Gender Choice
-    orientation = models.CharField(max_length=2, choices=SexO, default='NA')  # Sexual Orientation Choice
-    us_citizenship = models.BooleanField()  # Y/N Hispanic
-    non_citizen = models.CharField(max_length=1, choices=NonCitizen, default='0')
-    gross_income = models.CharField(max_length=1, choices=Income, default='1')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    fname = models.CharField(max_length=50, null=True, blank=True)  # First Name
+    lname = models.CharField(max_length=50, null=True, blank=True)  # Last Name
+    phone = models.CharField(max_length=11, null=True, blank=True)  # Phone Number
+    email = models.EmailField(null=True, blank=True)  # Email
+    age = models.PositiveIntegerField(null=True, blank=True)  # Age
+    dob = models.DateField(null=True, blank=True)  # Date of Birth
+    hispanic = models.BooleanField(null=True, blank=True)  # Y/N Hispanic
+    ethnicity = models.CharField(max_length=2, choices=Ethnicities, default='NA', null=True, blank=True)  # Ethnicity/Race Choice
+    gender = models.CharField(max_length=2, choices=Gender, default='NA', null=True, blank=True)  # Gender Choice
+    orientation = models.CharField(max_length=2, choices=SexO, default='NA', null=True, blank=True)  # Sexual Orientation Choice
+    us_citizenship = models.BooleanField(null=True, blank=True)  # Y/N US Citizenship
+    non_citizen = models.CharField(max_length=1, choices=NonCitizen, default='0', null=True, blank=True)
+    gross_income = models.CharField(max_length=1, choices=Income, default='1', null=True, blank=True)
     created_on = models.DateTimeField(auto_now=True)
 
     def is_complete(self):
@@ -54,14 +54,13 @@ class Employee(models.Model):
             self.fname,
             self.lname,
             self.phone,
+            self.email,
             self.dob,
-            self.hispanic,
-            self.ethnicity,
-            self.gender,
-            self.orientation,
-            self.us_citizenship,
-            self.non_citizen,
-            self.gross_income,
+            self.ethnicity != 'NA',
+            self.gender != 'NA',
+            self.orientation != 'NA',
+            self.non_citizen != '0',
+            self.gross_income != '1',
         ])
 
 # Academic Tables
@@ -111,9 +110,3 @@ class JobInternship(models.Model):
     end_date = models.DateField()
     description = models.TextField()
     salary = models.DecimalField(max_digits=10, decimal_places=2)
-
-
-
-
-
-# Job/Internship Tables
